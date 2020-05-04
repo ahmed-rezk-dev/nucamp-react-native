@@ -4,8 +4,7 @@ import { Card, Icon } from "react-native-elements";
 import { CAMPSITES } from "../shared/campsites";
 import { COMMENTS } from "../shared/comments";
 
-function RenderCampsite(props) {
-	const { campsite } = props;
+function RenderCampsite({ campsite }, props) {
 	if (campsite) {
 		return (
 			<Card
@@ -61,17 +60,12 @@ class CampsiteInfo extends Component {
 		this.state = {
 			campsites: CAMPSITES,
 			comments: COMMENTS,
-			favorite: false,
 		};
 	}
 
 	static navigationOptions = {
 		title: "Campsite Information",
 	};
-
-	markFavorite() {
-		this.setState({ favorite: true });
-	}
 
 	render() {
 		const campsiteId = this.props.navigation.getParam("campsiteId");
@@ -83,11 +77,7 @@ class CampsiteInfo extends Component {
 		);
 		return (
 			<ScrollView>
-				<RenderCampsite
-					campsite={campsite}
-					favorite={this.state.favorite}
-					markFavorite={() => this.markFavorite()}
-				/>
+				<RenderCampsite campsite={campsite} />
 				<RenderComments comments={comments} />
 			</ScrollView>
 		);

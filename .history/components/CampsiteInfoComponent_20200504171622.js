@@ -4,8 +4,7 @@ import { Card, Icon } from "react-native-elements";
 import { CAMPSITES } from "../shared/campsites";
 import { COMMENTS } from "../shared/comments";
 
-function RenderCampsite(props) {
-	const { campsite } = props;
+function RenderCampsite({ campsite }, props) {
 	if (campsite) {
 		return (
 			<Card
@@ -85,7 +84,6 @@ class CampsiteInfo extends Component {
 			<ScrollView>
 				<RenderCampsite
 					campsite={campsite}
-					favorite={this.state.favorite}
 					markFavorite={() => this.markFavorite()}
 				/>
 				<RenderComments comments={comments} />
