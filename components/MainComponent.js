@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-import Home from "./HomeComponent";
-import Directory from "./DirectoryComponent";
-import CampsiteInfo from "./CampsiteInfoComponent";
 import {
 	View,
 	Platform,
@@ -10,6 +7,16 @@ import {
 	ScrollView,
 	Image,
 } from "react-native";
+import { connect } from "react-redux";
+import {
+	fetchCampsites,
+	fetchComments,
+	fetchPromotions,
+	fetchPartners,
+} from "../redux/ActionCreators";
+import Home from "./HomeComponent";
+import Directory from "./DirectoryComponent";
+import CampsiteInfo from "./CampsiteInfoComponent";
 
 import { Icon } from "react-native-elements";
 import {
@@ -20,6 +27,13 @@ import {
 import SafeAreaView from "react-native-safe-area-view";
 import About from "./AboutComponent";
 import Contact from "./ContactComponent";
+
+const mapDispatchToProps = {
+	fetchCampsites,
+	fetchComments,
+	fetchPromotions,
+	fetchPartners,
+};
 
 const styles = StyleSheet.create({
 	container: {
@@ -241,6 +255,12 @@ const MainNavigator = createDrawerNavigator(
 );
 
 class Main extends Component {
+	componentDidMount() {
+		this.props.fetchCampsites();
+		this.props.fetchComments();
+		this.props.fetchPromotions();
+		this.props.fetchPartners();
+	}
 	render() {
 		return (
 			<View
@@ -258,4 +278,4 @@ class Main extends Component {
 	}
 }
 
-export default Main;
+export default connect(null, mapDispatchToProps)(Main);
