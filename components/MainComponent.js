@@ -6,6 +6,7 @@ import Home from "./HomeComponent";
 import Directory from "./DirectoryComponent";
 import CampsiteInfo from "./CampsiteInfoComponent";
 import Favorites from "./FavoritesComponent";
+import Login from "./LoginComponent";
 
 import { Icon } from "react-native-elements";
 import { createStackNavigator, createDrawerNavigator, DrawerItems } from "react-navigation";
@@ -64,6 +65,24 @@ const FavoritesNavigator = createStackNavigator(
 				color: "#fff",
 			},
 			headerLeft: <Icon name="heart" type="font-awesome" iconStyle={styles.stackIcon} onPress={() => navigation.toggleDrawer()} />,
+		}),
+	}
+);
+
+const LoginNavigator = createStackNavigator(
+	{
+		Login: { screen: Login },
+	},
+	{
+		navigationOptions: ({ navigation }) => ({
+			headerStyle: {
+				backgroundColor: "#5637DD",
+			},
+			headerTintColor: "#fff",
+			headerTitleStyle: {
+				color: "#fff",
+			},
+			headerLeft: <Icon name="sign-in" type="font-awesome" iconStyle={styles.stackIcon} onPress={() => navigation.toggleDrawer()} />,
 		}),
 	}
 );
@@ -208,6 +227,12 @@ const MainNavigator = createDrawerNavigator(
 				drawerIcon: ({ tintColor }) => <Icon name="heart" type="font-awesome" size={24} color={tintColor} />,
 			},
 		},
+		Login: {
+			screen: LoginNavigator,
+			navigationOptions: {
+				drawerIcon: ({ tintColor }) => <Icon name="sign-in" type="font-awesome" size={24} color={tintColor} />,
+			},
+		},
 		About: {
 			screen: AboutNavigator,
 			navigationOptions: {
@@ -224,7 +249,9 @@ const MainNavigator = createDrawerNavigator(
 		},
 	},
 	{
+		initialRouteName: "Home",
 		drawerBackgroundColor: "#CEC8FF",
+		contentComponent: CustomDrawerContentComponent,
 	}
 );
 
