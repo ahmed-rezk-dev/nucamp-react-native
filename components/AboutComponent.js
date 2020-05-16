@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { ScrollView, FlatList } from "react-native";
 import { Card, Text, ListItem } from "react-native-elements";
 import { connect } from "react-redux";
+import * as Animatable from "react-native-animatable";
 import { baseUrl } from "../shared/baseUrl";
 import Loading from "./LoadingComponent";
 import { PARTNERS } from "../shared/partners";
@@ -26,13 +27,7 @@ class About extends Component {
 
 	render() {
 		const renderPartner = ({ item }) => {
-			return (
-				<ListItem
-					title={item.name}
-					subtitle={item.description}
-					leftAvatar={{ source: { uri: baseUrl + item.image } }}
-				/>
-			);
+			return <ListItem title={item.name} subtitle={item.description} leftAvatar={{ source: { uri: baseUrl + item.image } }} />;
 		};
 
 		if (this.props.partners.isLoading) {
@@ -48,36 +43,26 @@ class About extends Component {
 		if (this.props.partners.errMess) {
 			return (
 				<ScrollView>
-					<Mission />
-					<Card title="Community Partners">
-						<Text>{this.props.partners.errMess}</Text>
-					</Card>
+					<Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+						<Mission />
+						<Card title="Community Partners">
+							<Text>{this.props.partners.errMess}</Text>
+						</Card>
+					</Animatable.View>
 				</ScrollView>
 			);
 		}
 		return (
 			<ScrollView>
-				<Card title="Our Mission">
-					<Text>
-						We present a curated database of the best campsites in
-						the vast woods and backcountry of the World Wide Web
-						Wilderness. We increase access to adventure for the
-						public while promoting safe and respectful use of
-						resources. The expert wilderness trekkers on our staff
-						personally verify each campsite to make sure that they
-						are up to our standards. We also present a platform for
-						campers to share reviews on campsites they have visited
-						with each other.
-					</Text>
-				</Card>
+				<Animatable.View animation="fadeInDown" duration={2000} delay={1000}>
+					<Card title="Our Mission">
+						<Text>We present a curated database of the best campsites in the vast woods and backcountry of the World Wide Web Wilderness. We increase access to adventure for the public while promoting safe and respectful use of resources. The expert wilderness trekkers on our staff personally verify each campsite to make sure that they are up to our standards. We also present a platform for campers to share reviews on campsites they have visited with each other.</Text>
+					</Card>
 
-				<Card title="Community Partners">
-					<FlatList
-						data={this.props.partners.partners}
-						renderItem={renderPartner}
-						keyExtractor={(item) => item.id.toString()}
-					/>
-				</Card>
+					<Card title="Community Partners">
+						<FlatList data={this.props.partners.partners} renderItem={renderPartner} keyExtractor={(item) => item.id.toString()} />
+					</Card>
+				</Animatable.View>
 			</ScrollView>
 		);
 	}
